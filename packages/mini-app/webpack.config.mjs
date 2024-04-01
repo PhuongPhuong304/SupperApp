@@ -37,15 +37,15 @@ export default (env) => {
     throw new Error('Missing platform');
   }
 
-    /**
-   * Using Module Federation might require disabling hmr.
-   * Uncomment below to set `devServer.hmr` to `false`.
-   *
-   * Keep in mind that `devServer` object is not available
-   * when running `webpack-bundle` command. Be sure
-   * to check its value to avoid accessing undefined value,
-   * otherwise an error might occur.
-   */
+  /**
+ * Using Module Federation might require disabling hmr.
+ * Uncomment below to set `devServer.hmr` to `false`.
+ *
+ * Keep in mind that `devServer` object is not available
+ * when running `webpack-bundle` command. Be sure
+ * to check its value to avoid accessing undefined value,
+ * otherwise an error might occur.
+ */
   // if (devServer) {
   //   devServer.hmr = false;
   // }
@@ -232,6 +232,45 @@ export default (env) => {
           assetsPath,
         },
       }),
+
+      new Repack.plugins.ModuleFederationPlugin({
+        name: 'MiniApp',
+        exposes: {
+          './MiniApp': './src/navigation/MainNavigator',
+        },
+        shared: {
+          react: {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '18.2.0',
+          },
+          'react-native': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '0.71.3',
+          },
+          '@react-navigation/native': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '6.0.14',
+          },
+          '@react-navigation/native-stack': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '6.9.2',
+          },
+          'react-native-safe-area-context': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '4.5.0',
+          },
+          'react-native-screens': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '3.20.0',
+          },
+        },
+      })
     ],
   };
 };

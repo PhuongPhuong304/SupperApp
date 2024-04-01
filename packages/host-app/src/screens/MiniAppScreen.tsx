@@ -3,7 +3,7 @@ import { Federated } from "@callstack/repack/client";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 const MiniAppNavigator = React.lazy(() =>
-  Federated.importModule("MiniApp", "./MiniAppNavigator")
+  Federated.importModule("MiniApp", "./MiniApp")
 );
 
 const FallbackComponent = () => (
